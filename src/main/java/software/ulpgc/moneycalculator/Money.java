@@ -1,6 +1,8 @@
 package software.ulpgc.moneycalculator;
 
-public record Money(long amount, Currency currency) {
+import java.math.BigDecimal;
+
+public record Money(BigDecimal amount, Currency currency) {
     @Override
     public String toString() {
         return amount + " " + currency;

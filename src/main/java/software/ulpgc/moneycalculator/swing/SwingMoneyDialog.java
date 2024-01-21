@@ -7,6 +7,7 @@ import software.ulpgc.moneycalculator.MoneyDialog;
 
 import javax.swing.*;
 import java.awt.*;
+import java.math.BigDecimal;
 import java.util.List;
 
 public class SwingMoneyDialog extends JPanel implements MoneyDialog {
@@ -40,10 +41,14 @@ public class SwingMoneyDialog extends JPanel implements MoneyDialog {
 
     @Override
     public Money get() {
-        return new Money(toLong(amountField.getText()), currencyDialog.get());
+        return new Money(toBigDecimal(amountField.getText()), currencyDialog.get());
     }
 
     private long toLong(String text) {
         return Long.parseLong(text);
+    }
+
+    private BigDecimal toBigDecimal(String text) {
+        return new BigDecimal(text);
     }
 }

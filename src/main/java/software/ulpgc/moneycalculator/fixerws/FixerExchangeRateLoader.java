@@ -11,6 +11,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.math.BigDecimal;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.time.LocalDate;
@@ -24,13 +25,13 @@ public class FixerExchangeRateLoader implements ExchangeRateLoader {
         try {
             return new ExchangeRate(from, to,  LocalDate.now(), toExchangeRate(loadJson(currencyTo, currencyFrom)));
         } catch (IOException e) {
-            return new ExchangeRate(from, to, LocalDate.now(), 0);
+            return new ExchangeRate(from, to, LocalDate.now(), new BigDecimal(0));
         }
     }
 
-    private double toExchangeRate(String json) {
+    private BigDecimal toExchangeRate(String json) {
         Map<String, JsonElement> info = new Gson().fromJson(json, JsonObject.class).get("info").getAsJsonObject().asMap();
-        return info.get("rate").getAsDouble();
+        return info.get("rate").getAsBigDecimal();
     }
 
     private String loadJson(String currencyTo, String currencyFrom) throws IOException {
