@@ -2,7 +2,7 @@ package software.ulpgc.moneycalculator.swing;
 
 import software.ulpgc.moneycalculator.*;
 import software.ulpgc.moneycalculator.fixerws.FixerCurrencyLoader;
-import software.ulpgc.moneycalculator.mocks.MockExchangeRateLoader;
+import software.ulpgc.moneycalculator.fixerws.FixerExchangeRateLoader;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,7 +22,7 @@ public class SwingMain extends JFrame {
         Command command = new ExchangeMoneyCommand(
                 main.moneyDialog().define(currencies),
                 main.currencyDialog().define(currencies),
-                new MockExchangeRateLoader(),
+                new FixerExchangeRateLoader(),
                 main.moneyDisplay());
         main.add("exchange money", command);
         main.setVisible(true);
