@@ -1,11 +1,11 @@
-package software.ulpgc.moneycalculator.fixerws;
+package software.ulpgc.moneycalculator.api.fixerws;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import software.ulpgc.moneycalculator.Currency;
-import software.ulpgc.moneycalculator.ExchangeRate;
-import software.ulpgc.moneycalculator.ExchangeRateLoader;
+import software.ulpgc.moneycalculator.model.Currency;
+import software.ulpgc.moneycalculator.model.ExchangeRate;
+import software.ulpgc.moneycalculator.api.ExchangeRateLoader;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -25,6 +25,7 @@ public class FixerExchangeRateLoader implements ExchangeRateLoader {
         try {
             return new ExchangeRate(from, to,  LocalDate.now(), toExchangeRate(loadJson(currencyTo, currencyFrom)));
         } catch (IOException e) {
+            System.out.println("Could not load data from api.");
             return new ExchangeRate(from, to, LocalDate.now(), new BigDecimal(0));
         }
     }

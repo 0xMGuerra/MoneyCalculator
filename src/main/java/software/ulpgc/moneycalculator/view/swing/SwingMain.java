@@ -1,8 +1,13 @@
-package software.ulpgc.moneycalculator.swing;
+package software.ulpgc.moneycalculator.view.swing;
 
-import software.ulpgc.moneycalculator.*;
-import software.ulpgc.moneycalculator.fixerws.FixerCurrencyLoader;
-import software.ulpgc.moneycalculator.fixerws.FixerExchangeRateLoader;
+import software.ulpgc.moneycalculator.controller.Command;
+import software.ulpgc.moneycalculator.controller.ExchangeMoneyCommand;
+import software.ulpgc.moneycalculator.api.fixerws.FixerCurrencyLoader;
+import software.ulpgc.moneycalculator.api.fixerws.FixerExchangeRateLoader;
+import software.ulpgc.moneycalculator.model.Currency;
+import software.ulpgc.moneycalculator.view.CurrencyDialog;
+import software.ulpgc.moneycalculator.view.MoneyDialog;
+import software.ulpgc.moneycalculator.view.MoneyDisplay;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,18 +20,6 @@ public class SwingMain extends JFrame {
     private MoneyDisplay moneyDisplay;
     private MoneyDialog moneyDialog;
     private CurrencyDialog currencyDialog;
-
-    public static void main(String[] args) {
-        SwingMain main = new SwingMain();
-        List<Currency> currencies = new FixerCurrencyLoader().load();
-        Command command = new ExchangeMoneyCommand(
-                main.moneyDialog().define(currencies),
-                main.currencyDialog().define(currencies),
-                new FixerExchangeRateLoader(),
-                main.moneyDisplay());
-        main.add("exchange money", command);
-        main.setVisible(true);
-    }
 
     public SwingMain() throws HeadlessException {
         this.setTitle("Money calculator");
@@ -64,7 +57,7 @@ public class SwingMain extends JFrame {
         return dialog;
     }
 
-    private void add(String name, Command command) {
+    public void add(String name, Command command) {
         commands.put(name, command);
     }
 
@@ -78,5 +71,17 @@ public class SwingMain extends JFrame {
 
     private MoneyDialog moneyDialog() {
         return moneyDialog;
+    }
+
+    public MoneyDisplay getMoneyDisplay() {
+        return moneyDisplay;
+    }
+
+    public MoneyDialog getMoneyDialog() {
+        return moneyDialog;
+    }
+
+    public CurrencyDialog getCurrencyDialog() {
+        return currencyDialog;
     }
 }

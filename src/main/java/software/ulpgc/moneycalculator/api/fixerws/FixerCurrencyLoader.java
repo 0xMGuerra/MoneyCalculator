@@ -1,10 +1,10 @@
-package software.ulpgc.moneycalculator.fixerws;
+package software.ulpgc.moneycalculator.api.fixerws;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import software.ulpgc.moneycalculator.Currency;
-import software.ulpgc.moneycalculator.CurrencyLoader;
+import software.ulpgc.moneycalculator.model.Currency;
+import software.ulpgc.moneycalculator.api.CurrencyLoader;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -24,6 +24,7 @@ public class FixerCurrencyLoader implements CurrencyLoader {
         try {
             return toList(loadJson());
         } catch (IOException e) {
+            System.out.println("Could not load data from api.");
             return emptyList();
         }
     }
